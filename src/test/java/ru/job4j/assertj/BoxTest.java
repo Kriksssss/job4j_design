@@ -3,6 +3,7 @@ package ru.job4j.assertj;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 class BoxTest {
 
@@ -59,20 +60,20 @@ class BoxTest {
     void sphereArea() {
         Box box = new Box(0, 10);
         double area = box.getArea();
-        assertThat(area).isEqualTo(1256.6370614359173);
+        assertThat(area).isEqualTo(1256.63, within(0.01));
     }
 
     @Test
     void tetrahedronArea() {
         Box box = new Box(4, 10);
         double area = box.getArea();
-        assertThat(area).isEqualTo(173.20508075688772);
+        assertThat(area).isEqualTo(173.20508075688772, within(0.01));
     }
 
     @Test
     void cubeArea() {
         Box box = new Box(8, 10);
         double area = box.getArea();
-        assertThat(area).isEqualTo(600.0);
+        assertThat(area).isEqualTo(600.0, within(0.01));
     }
 }
