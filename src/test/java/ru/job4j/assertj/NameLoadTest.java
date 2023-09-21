@@ -36,4 +36,12 @@ class NameLoadTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("key= does not contain a value");
     }
+
+    @Test
+    void checkEmptyParse() {
+        NameLoad nameLoad = new NameLoad();
+        assertThatThrownBy(nameLoad::parse)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Names array is empty");
+    }
 }
