@@ -18,7 +18,7 @@ public class MatrixIt implements Iterator<Integer> {
             if (column < data[row].length) {
                 return  true;
             } else {
-                row ++;
+                row++;
                 column = 0;
             }
         }
