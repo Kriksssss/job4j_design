@@ -19,33 +19,34 @@ public class Generics {
         generics.printObject(third);
         System.out.println();
 
-        generics.printBoundedWildCard(second); // Изменено на List<Predator>
-        generics.printBoundedWildCard(third);  // Изменено на List<Predator>
+        // generics.printBoundedWildCard(first);
+        generics.printBoundedWildCard(second);
+        generics.printBoundedWildCard(third);
         System.out.println();
 
-        generics.printLowerBoundedWildCard(first); // Изменено на List<Animal>
-        generics.printLowerBoundedWildCard(second); // Изменено на List<Animal>
+        generics.printLowerBoundedWildCard(first);
+        generics.printLowerBoundedWildCard(second);
+        // generics.printLowerBoundedWildCard(third);
     }
 
-    public void printObject(List<?> list) { // Меняем параметр на ограниченный метасимвольный тип
+    public void printObject(List<?> list) {
         for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
             Object next = iterator.next();
             System.out.println("Текущий элемент: " + next);
         }
     }
 
-    public void printBoundedWildCard(List<? extends Predator> list) { // Меняем параметр на ограниченный метасимвольный тип
+    public void printBoundedWildCard(List<? extends Predator> list) {
         for (Iterator<? extends Predator> iterator = list.iterator(); iterator.hasNext();) {
             Object next = iterator.next();
             System.out.println("Текущий элемент: " + next);
         }
     }
 
-    public void printLowerBoundedWildCard(List<? super Predator> list) { // Меняем параметр на ограниченный метасимвольный тип
+    public void printLowerBoundedWildCard(List<? super Predator> list) {
         for (Iterator<? super Predator> iterator = list.iterator(); iterator.hasNext();) {
             Object next = iterator.next();
             System.out.println("Текущий элемент: " + next);
         }
     }
 }
-
