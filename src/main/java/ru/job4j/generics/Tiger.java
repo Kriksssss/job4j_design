@@ -18,6 +18,8 @@ class Tiger extends Predator {
 
     @Override
     public String toString() {
-        return "Tiger: " + getName() + ", Teeth Count: " + getTeethCount() + ", Stripe Pattern: " + stripePattern;
+        return "Tiger: " + getName()
+                + ", Teeth Count: " + getTeethCount()
+                + ", Stripe Pattern: " + stripePattern;
     }
 }
