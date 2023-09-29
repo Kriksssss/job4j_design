@@ -25,7 +25,7 @@ class RoleStoreTest {
     void whenAddDuplicateAndFindRoleNameIsAdmin() {
         RoleStore store = new RoleStore();
         store.add(new Role("1", "Admin"));
-        store.add(new Role("1", "Moderator"));
+        store.add(new Role("1", "Moder"));
         Role result = store.findById("1");
         assertThat(result.getRoleName()).isEqualTo("Admin");
     }
