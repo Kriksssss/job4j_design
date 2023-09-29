@@ -10,9 +10,9 @@ public class Generics {
         List<Animal> first = new ArrayList<>();
         List<Predator> second = new ArrayList<>();
         List<Tiger> third = new ArrayList<>();
-        first.add(new Animal());
-        second.add(new Predator());
-        third.add(new Tiger());
+        first.add(new Animal("Animal", 1));
+        second.add(new Predator("Predator", 1));
+        third.add(new Tiger("Tiger", 1));
 
         generics.printObject(first);
         generics.printObject(second);

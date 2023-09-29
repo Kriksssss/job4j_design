@@ -1,23 +1,15 @@
 package ru.job4j.generics;
 
-class Predator extends Animal {
-    private int teethCount;
-
-    public Predator(String name, int teethCount) {
-        super(name);
-        this.teethCount = teethCount;
-    }
-
-    public Predator() {
-
-    }
-
-    public int getTeethCount() {
-        return teethCount;
+public class Predator extends Animal {
+    public Predator(String name, int age) {
+        super(name, age);
     }
 
     @Override
     public String toString() {
-        return "Predator: " + getName() + ", Teeth Count: " + teethCount;
+        return "Predator{"
+                + "name='" + super.getName() + '\''
+                + ", age=" + super.getAge()
+                + '}';
     }
 }
