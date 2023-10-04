@@ -12,34 +12,40 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         container = (T[]) new Object[capacity];
     }
 
+    private T[] grow() {
+        return Arrays.copyOf(container, Math.max(container.length, 1) * 2);
+    }
+
     @Override
     public void add(T value) {
         if (size == container.length) {
-            grow();
+            container = grow();
         }
-        container[size++] = value;
+        container[size] = value;
+        size++;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
         Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T result = container[index];
         container[index] = newValue;
-        return oldValue;
+        return result;
     }
 
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, size);
-        T removedValue = container[index];
-        int numMoved = size - index - 1;
-        if (numMoved > 0) {
-            System.arraycopy(container, index + 1, container, index, numMoved);
+        T result = container[index];
+        int newSize = size - 1;
+        if (newSize > index) {
+            System.arraycopy(container, index + 1, container, index, newSize - index);
         }
-        container[--size] = null;
+        container[newSize] = null;
+        size = newSize;
         modCount++;
-        return removedValue;
+        return result;
     }
 
     @Override
@@ -56,11 +62,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private int expectedModCount = modCount;
+            private final int expectedModCount = modCount;
             private int currentIndex = 0;
 
             @Override
             public boolean hasNext() {
+                checkModification();
                 return currentIndex < size;
             }
 
@@ -69,18 +76,15 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (expectedModCount != modCount) {
+                checkModification();
+                return container[currentIndex++];
+            }
+
+            private void checkModification() {
+                if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
-                return container[currentIndex++];
             }
         };
     }
-
-    private void grow() {
-        int oldCapacity = container.length;
-        int newCapacity = oldCapacity + (oldCapacity >> 1);
-        container = Arrays.copyOf(container, newCapacity);
-    }
 }
-

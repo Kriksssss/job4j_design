@@ -23,15 +23,15 @@ class SimpleArrayListTest {
     }
 
     @Test
-    void checkIterator() {
-        assertThat(list.size()).isEqualTo(3);
-        assertThat(list).hasSize(3);
-    }
-
-    @Test
     void whenAddThenSizeIncrease() {
         list.add(4);
         assertThat(list.size()).isEqualTo(4);
+    }
+
+    @Test
+    void checkIterator() {
+        assertThat(list.size()).isEqualTo(3);
+        assertThat(list).hasSize(3);
     }
 
     @Test
