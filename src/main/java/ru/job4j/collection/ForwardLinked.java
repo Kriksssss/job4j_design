@@ -40,10 +40,14 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
         modCount++;
         T deletedValue = head.value;
-        head = head.next;
+        Node<T> newHead = head.next;
+        head.value = null;
+        head.next = null;
+        head = newHead;
         size--;
         return deletedValue;
     }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -72,7 +76,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     private static class Node<T> {
-        private final T value;
+        private T value;
         private Node<T> next;
 
         Node(T value, Node<T> next) {
