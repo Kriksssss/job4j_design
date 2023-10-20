@@ -17,7 +17,13 @@ public class ListUtils {
 
 
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
-        list.removeIf(filter);
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            T current = iterator.next();
+            if (filter.test(current)) {
+                iterator.remove();
+            }
+        }
     }
 
     public static <T> void replaceIf(List<T> list, Predicate<T> filter, T value) {
@@ -31,7 +37,7 @@ public class ListUtils {
     }
 
     public static <T> void removeAll(List<T> list, List<T> elements) {
-        list.removeIf(elements::contains);
+        removeIf(list, elements::contains);
     }
 }
 
