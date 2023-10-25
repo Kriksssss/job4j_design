@@ -93,16 +93,16 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     private class NonNullIterator implements Iterator<K> {
         private int index;
-        private final int expectModCount;
+        private final int expectedModCount;
 
         public NonNullIterator() {
             this.index = 0;
-            this.expectModCount = modCount;
+            this.expectedModCount = modCount;
         }
 
         @Override
         public boolean hasNext() {
-            if (expectModCount != modCount) {
+            if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
             while (index < capacity && (table[index] == null)) {
