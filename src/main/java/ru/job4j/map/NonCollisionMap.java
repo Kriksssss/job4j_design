@@ -42,9 +42,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean inserted = false;
-        int hashCode = Objects.hashCode(key);
-        int hash = hash(hashCode);
-        int index = indexFor(hash);
+        int index = getIndex(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
@@ -61,10 +59,9 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public V get(K key) {
         V result = null;
-        int hashCode = Objects.hashCode(key);
-        int hash = hash(hashCode);
-        int index = indexFor(hash);
-        if (table[index] != null && Objects.equals(table[index].key, key)) {
+        int index = getIndex(key);
+        if (table[index] != null && Objects.hashCode(table[index].key) == Objects.hashCode(key)
+                && Objects.equals(table[index].key, key)) {
             result = table[index].value;
         }
         return result;
@@ -73,9 +70,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean remove(K key) {
         boolean removed = false;
-        int hashCode = Objects.hashCode(key);
-        int hash = hash(hashCode);
-        int index = indexFor(hash);
+        int index = getIndex(key);
         if (table[index] != null && Objects.equals(table[index].key, key)) {
             table[index] = null;
             count--;
@@ -83,6 +78,13 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
             removed = true;
         }
         return removed;
+    }
+
+    private int getIndex(K key) {
+        int hashCode = Objects.hashCode(key);
+        int hash = hash(hashCode);
+        int index = indexFor(hash);
+        return index;
     }
 
     @Override
