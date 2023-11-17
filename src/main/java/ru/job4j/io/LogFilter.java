@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +27,19 @@ public class LogFilter {
             result = Collections.emptyList();
         }
         return result;
+    }
+
+    public void saveTo(String out) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(out))) {
+            List<String> data = filter();
+            for (String line : data) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
