@@ -1,9 +1,9 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LogFilter {
     private final String file;
@@ -13,33 +13,30 @@ public class LogFilter {
     }
 
     public List<String> filter() {
-        List<String> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" ");
-                if (parts.length >= 2 && parts[parts.length - 2].equals("404")) {
-                    result.add(line);
-                }
-            }
-        } catch (Exception e) {
+            return reader.lines()
+                    .filter(line -> line.endsWith(" 404"))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
             e.printStackTrace();
-            result = Collections.emptyList();
+            return Collections.emptyList();
         }
-        return result;
     }
 
     public void saveTo(String out) {
+        List<String> data = filter();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(out))) {
-            List<String> data = filter();
-            for (String line : data) {
-                writer.write(line);
-                writer.newLine();
-            }
+            data.forEach(line -> {
+                try {
+                    writer.write(line);
+                    writer.newLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void main(String[] args) {
@@ -48,4 +45,5 @@ public class LogFilter {
         filteredLines.forEach(System.out::println);
     }
 }
+
 
