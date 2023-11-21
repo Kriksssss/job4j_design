@@ -3,11 +3,11 @@ package ru.job4j.io;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ConfigTest {
 
     private Config config;
-
 
     @Test
     void whenPairWithoutComment() {
@@ -27,11 +27,16 @@ class ConfigTest {
     }
 
     @Test
-    void whenFileWithInvalidFormat() {
+    void whenInvalidFormatFile() {
         String path = "./data/file_with_invalid_format.properties";
         config = new Config(path);
-        assertThatThrownBy(config::load)
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Invalid format in line");
+        assertThrows(IllegalArgumentException.class, () -> config.load());
+    }
+
+    @Test
+    void whenEmptyValue() {
+        String path = "./data/file_with_empty_value.properties";
+        config = new Config(path);
+        assertThrows(IllegalArgumentException.class, () -> config.load());
     }
 }

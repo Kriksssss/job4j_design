@@ -18,16 +18,16 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
-                    .filter(line -> !line.trim().isEmpty() && !line.trim().startsWith("#"))
-                    .forEach(line -> {
-                        String[] parts = line.split("=");
-                        if (parts.length == 2) {
-                            values.put(parts[0].trim(), parts[1].trim());
-                        } else {
-                            throw new IllegalArgumentException("Invalid format in line: " + line);
-                        }
-                    });
+            read.lines().forEach(line -> {
+                line = line.trim();
+                if (!line.isEmpty() && !line.startsWith("#")) {
+                    String[] parts = line.split("=");
+                    if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                        throw new IllegalArgumentException("Invalid format in line: " + line);
+                    }
+                    values.put(parts[0].trim(), parts[1].trim());
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
