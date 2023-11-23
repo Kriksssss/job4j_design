@@ -6,17 +6,22 @@ public class Analysis {
     public void unavailable(String source, String target) {
         boolean server = false;
         try (BufferedReader in = new BufferedReader(new FileReader(source));
-             PrintWriter out = new PrintWriter(new BufferedOutputStream(
-                             new FileOutputStream(target)))) {
+             PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+
+            StringBuilder result = new StringBuilder();
+
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if (!server && (line.contains("400") || line.contains("500"))) {
                     server = true;
-                    out.print(line.split(" ")[1] + "; ");
+                    result.append(line.split(" ")[1]).append("; ");
                 } else if (server && (line.contains("200") || line.contains("300"))) {
                     server = false;
-                    out.println(line.split(" ")[1] + ";");
+                    result.append(line.split(" ")[1]).append(";\n");
                 }
             }
+
+            out.write(result.toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
