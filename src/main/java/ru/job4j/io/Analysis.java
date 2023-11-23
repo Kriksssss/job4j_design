@@ -16,7 +16,7 @@ public class Analysis {
                     result.append(line.split(" ")[1]).append("; ");
                 } else if (server && (line.contains("200") || line.contains("300"))) {
                     server = false;
-                    result.append(line.split(" ")[1]).append(";\n");
+                    result.append(line.split(" ")[1]).append(";").append(System.lineSeparator());
                 }
             }
 
@@ -32,3 +32,4 @@ public class Analysis {
         analysis.unavailable("data/server.log", "data/target.csv");
     }
 }
+
