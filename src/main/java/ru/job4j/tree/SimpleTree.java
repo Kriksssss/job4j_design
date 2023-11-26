@@ -31,13 +31,13 @@ public class SimpleTree<E> implements Tree<E> {
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
             if (el.value.equals(value)) {
-                rsl = Optional.of(el);
-                break;
+                return Optional.of(el);
             }
             data.addAll(el.children);
         }
         return rsl;
     }
+
 
     @Override
     public boolean isBinary() {
