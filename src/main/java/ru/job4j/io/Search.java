@@ -29,8 +29,9 @@ public class Search {
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
-        if (!file.isDirectory()) {
-            throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
+        String extension = args[1];
+        if (extension.length() < 2 || !extension.startsWith(".")) {
+            throw new IllegalArgumentException("Invalid file extension");
         }
     }
 }
