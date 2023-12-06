@@ -24,8 +24,8 @@ public class CSVReader {
         }
 
         try (Scanner scanner = new Scanner(new FileInputStream(path));
-             PrintStream output = "stdout".equals(out) ?
-                     System.out : new PrintStream(new FileOutputStream(out))) {
+             PrintStream output = "stdout".equals(out)
+                     ? System.out : new PrintStream(new FileOutputStream(out))) {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
