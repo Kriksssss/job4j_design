@@ -38,14 +38,20 @@ public class ConsoleChat {
                 chatLog.add("User: " + userMessage);
 
                 switch (userMessage.toLowerCase()) {
-                    case OUT -> chatting = false;
-                    case STOP -> botActive = false;
-                    case CONTINUE -> botActive = true;
-                    default -> {
+                    case OUT:
+                        chatting = false;
+                        break;
+                    case STOP:
+                        botActive = false;
+                        break;
+                    case CONTINUE:
+                        botActive = true;
+                        break;
+                    default:
                         String botResponse = generateBotResponse(phrases, botActive);
                         System.out.println("Bot: " + botResponse);
                         chatLog.add("Bot: " + botResponse);
-                    }
+                        break;
                 }
             }
         }
