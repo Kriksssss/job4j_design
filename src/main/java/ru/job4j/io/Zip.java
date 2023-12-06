@@ -16,7 +16,6 @@ public class Zip {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(source.toFile()))) {
                     zip.putNextEntry(new ZipEntry(source.toAbsolutePath().toString()));
                     zip.write(Files.readAllBytes(source));
-                    zip.closeEntry();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -54,6 +53,10 @@ public class Zip {
     }
 
     public static void main(String[] args) {
+        if (args.length != 4) {
+            System.out.println("Usage: java Zip -d=<directory> -e=<extension> -o=<output>");
+            return;
+        }
         Zip zip = new Zip();
         zip.packSingleFile(
                 new File("./pom.xml"),
