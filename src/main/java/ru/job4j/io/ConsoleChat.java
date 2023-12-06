@@ -38,24 +38,17 @@ public class ConsoleChat {
                 chatLog.add("User: " + userMessage);
 
                 switch (userMessage.toLowerCase()) {
-                    case OUT:
-                        chatting = false;
-                        break;
-                    case STOP:
-                        botActive = false;
-                        break;
-                    case CONTINUE:
-                        botActive = true;
-                        break;
-                    default:
+                    case OUT -> chatting = false;
+                    case STOP -> botActive = false;
+                    case CONTINUE -> botActive = true;
+                    default -> {
                         String botResponse = generateBotResponse(phrases, botActive);
                         System.out.println("Bot: " + botResponse);
                         chatLog.add("Bot: " + botResponse);
-                        break;
+                    }
                 }
             }
         }
-
         saveLog(chatLog);
         System.out.println("Chat log saved.");
     }
@@ -81,13 +74,16 @@ public class ConsoleChat {
     }
 
     private String generateBotResponse(List<String> phrases, boolean botActive) {
+        String response;
         if (botActive) {
             Random random = new Random();
-            return phrases.get(random.nextInt(phrases.size()));
+            response = phrases.get(random.nextInt(phrases.size()));
         } else {
-            return "Bot is currently silent.";
+            response = "Bot is currently silent.";
         }
+        return response;
     }
+
 
     public static void main(String[] args) {
         ConsoleChat cc = new ConsoleChat("data", "bot_phrases.txt");
