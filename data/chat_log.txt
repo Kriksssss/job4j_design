@@ -1,0 +1,22 @@
+User: hello
+Bot: That's interesting.
+User: you are legend
+Bot: That's interesting.
+User: stop
+User: dsds
+Bot: Bot is currently silent.
+User: stop
+User: dsds
+Bot: Bot is currently silent.
+User: dsd
+Bot: Bot is currently silent.
+User: dsdsdsas
+Bot: Bot is currently silent.
+User: continue
+User: sasa
+Bot: I don't understand.
+User: sasas
+Bot: I don't understand.
+User: fsdfdsf
+Bot: Goodbye!
+User: finish
