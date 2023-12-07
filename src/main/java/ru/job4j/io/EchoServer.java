@@ -19,11 +19,17 @@ public class EchoServer {
                         System.out.println(str);
                     }
 
-                    if (request.toString().contains("msg=Bye")) {
+                    String response = "HTTP/1.1 200 OK\r\n\r\n";
+
+                    if (request.toString().contains("msg=Exit")) {
                         server.close();
+                    } else if (request.toString().contains("msg=Hello")) {
+                        response += "Hello.";
+                    } else {
+                        response += "What.";
                     }
 
-                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                    out.write(response.getBytes());
                     out.flush();
                 }
             }
