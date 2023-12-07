@@ -13,14 +13,14 @@ public class CSVReader {
         String out = argsName.get("out");
         String filter = argsName.get("filter");
 
-        if (path == null || delimiter == null || out == null || filter == null) {
-            throw new IllegalArgumentException("All parameters are required");
-        }
-
         List<Integer> filterIndices = new ArrayList<>();
         String[] filterColumns = filter.split(",");
         for (String column : filterColumns) {
-            filterIndices.add(getColumnIndex(path, delimiter, column));
+            int index = getColumnIndex(path, delimiter, column);
+            if (index == -1) {
+                throw new IllegalArgumentException("Column not found: " + column);
+            }
+            filterIndices.add(index);
         }
 
         try (Scanner scanner = new Scanner(new FileInputStream(path));
@@ -51,9 +51,9 @@ public class CSVReader {
                 String firstLine = scanner.nextLine();
                 String[] columns = firstLine.split(delimiter);
 
-                int columnIndex = Arrays.asList(columns).indexOf(columnName);
-                if (columnIndex != -1) {
-                    return columnIndex;
+                int index = Arrays.asList(columns).indexOf(columnName);
+                if (index != -1) {
+                    return index;
                 } else {
                     throw new IllegalArgumentException("Column not found: " + columnName);
                 }
@@ -63,16 +63,12 @@ public class CSVReader {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            if (args.length > 0) {
-                ArgsName argsName = ArgsName.of(args);
-                handle(argsName);
-            } else {
-                System.out.println("Usage: java CSVReader -path=<path> -delimiter=<delimiter> -out=<stdout or file> -filter=<columns>");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws Exception {
+        if (args.length > 0) {
+            ArgsName argsName = ArgsName.of(args);
+            handle(argsName);
+        } else {
+            System.out.println("Usage: java CSVReader -path=<path> -delimiter=<delimiter> -out=<stdout or file> -filter=<columns>");
         }
     }
 }
