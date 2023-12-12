@@ -4,12 +4,21 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class CSVReader {
     public static void handle(ArgsName argsName) throws Exception {
         String path = argsName.get("path");
+        if (!Files.exists(Path.of(path))) {
+            throw new IllegalArgumentException("File does not exist: " + path);
+        }
+
         String delimiter = argsName.get("delimiter");
+        if (delimiter.length() != 1) {
+            throw new IllegalArgumentException("Invalid delimiter: " + delimiter);
+        }
         String out = argsName.get("out");
         String filter = argsName.get("filter");
 
