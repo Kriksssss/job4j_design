@@ -6,9 +6,21 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOGGER = Logger.getLogger(EchoServer.class.getName());
+
+    public static void main(String[] args) {
+        try {
+            runServer();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error in the server", e);
+        }
+    }
+
+    private static void runServer() throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
