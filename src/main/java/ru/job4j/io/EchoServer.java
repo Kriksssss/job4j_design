@@ -13,17 +13,23 @@ public class EchoServer {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
-                     BufferedReader in = new BufferedReader(
-                             new InputStreamReader(socket.getInputStream()))) {
-                    out.write("HTTP/1.1 200 OK\r\n".getBytes());
+                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+                    String response = "HTTP/1.1 200 OK\r\n";
+                    out.write(response.getBytes());
 
                     String requestLine = in.readLine();
                     System.out.println(requestLine);
 
-                    if (requestLine != null && requestLine.contains("msg=Bye")) {
+                    if (requestLine.contains("msg=Exit")) {
                         server.close();
+                    } else if (requestLine.contains("msg=Hello")) {
+                        response += "Hello.";
+                    } else {
+                        response += "What.";
                     }
 
+                    out.write(response.getBytes());
                     out.flush();
                 }
             }
