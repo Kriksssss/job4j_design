@@ -56,19 +56,17 @@ public class CSVReader {
 
     private static int getColumnIndex(String path, String delimiter, String columnName) throws Exception {
         try (Scanner scanner = new Scanner(new FileInputStream(path))) {
-            if (scanner.hasNextLine()) {
-                String firstLine = scanner.nextLine();
-                String[] columns = firstLine.split(delimiter);
-
-                int index = Arrays.asList(columns).indexOf(columnName);
-                if (index != -1) {
-                    return index;
-                } else {
-                    throw new IllegalArgumentException("Column not found: " + columnName);
-                }
-            } else {
+            if (!scanner.hasNextLine()) {
                 throw new IllegalArgumentException("File is empty");
             }
+            String firstLine = scanner.nextLine();
+            String[] columns = firstLine.split(delimiter);
+            int index = Arrays.asList(columns).indexOf(columnName);
+
+            if (index == -1) {
+                throw new IllegalArgumentException("Column not found: " + columnName);
+            }
+            return index;
         }
     }
 
