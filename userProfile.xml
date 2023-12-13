@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userProfile>
+    <isActive>true</isActive>
+    <age>25</age>
+    <username>JohnDoe</username>
+    <address>
+        <city>New York</city>
+        <country>USA</country>
+    </address>
+    <hobbies>
+        <hobby>Reading</hobby>
+        <hobby>Traveling</hobby>
+    </hobbies>
+</userProfile>
