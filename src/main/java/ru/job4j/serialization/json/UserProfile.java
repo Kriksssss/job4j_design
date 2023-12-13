@@ -1,8 +1,6 @@
 package ru.job4j.serialization.json;
 
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
-import java.io.File;
 import java.util.Arrays;
 
 @XmlRootElement
@@ -22,10 +20,7 @@ public class UserProfile {
 
     @XmlElementWrapper(name = "hobbies")
     @XmlElement(name = "hobby")
-    private String[] hobbies;
-
-    public UserProfile() {
-    }
+    private final String[] hobbies;
 
     public UserProfile(boolean isActive, int age, String username, Address address, String[] hobbies) {
         this.isActive = isActive;
