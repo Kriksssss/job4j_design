@@ -24,11 +24,9 @@ public class UserProfile {
     @XmlElement(name = "hobby")
     private String[] hobbies;
 
-    // Конструктор по умолчанию для JAXB
     public UserProfile() {
     }
 
-    // Конструктор с параметрами
     public UserProfile(boolean isActive, int age, String username, Address address, String[] hobbies) {
         this.isActive = isActive;
         this.age = age;
@@ -37,17 +35,15 @@ public class UserProfile {
         this.hobbies = hobbies;
     }
 
-    // Геттеры, сеттеры и другие методы
-
     @Override
     public String toString() {
-        return "UserProfile{" +
-                "isActive=" + isActive +
-                ", age=" + age +
-                ", username='" + username + '\'' +
-                ", address=" + address +
-                ", hobbies=" + Arrays.toString(hobbies) +
-                '}';
+        return "UserProfile{"
+                + "isActive=" + isActive
+                + ", age=" + age
+                + ", username='" + username + '\''
+                + ", address=" + address
+                + ", hobbies=" + Arrays.toString(hobbies)
+                + '}';
     }
 }
 
@@ -60,24 +56,20 @@ class Address {
     @XmlElement
     private String country;
 
-    // Конструктор по умолчанию для JAXB
     public Address() {
     }
 
-    // Конструктор с параметрами
     public Address(String city, String country) {
         this.city = city;
         this.country = country;
     }
 
-    // Геттеры, сеттеры и другие методы
-
     @Override
     public String toString() {
-        return "Address{" +
-                "city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        return "Address{"
+                + "city='" + city + '\''
+                + ", country='" + country + '\''
+                + '}';
     }
 }
 
