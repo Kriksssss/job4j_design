@@ -57,9 +57,8 @@ INSERT INTO teens (lname, gender) VALUES
 ('Petya', 'Male'),
 ('Anya', 'Female');
 
--- Получение всех возможных разнополых пар с использованием Cross Join
+-- Получение всех возможных разнополых пар с использованием Cross Join и исключением дублирования
 SELECT t1.lname AS teen1, t1.gender AS gender1, t2.lname AS teen2, t2.gender AS gender2
 FROM teens t1
 CROSS JOIN teens t2
-WHERE t1.gender <> t2.gender;
-
+WHERE t1.gender <> t2.gender AND t1.lname < t2.lname;
